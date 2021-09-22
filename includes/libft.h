@@ -4,7 +4,7 @@
 # include	<string.h>
 # include	<ctype.h>
 # include	<unistd.h>
-
+# include	<stdio.h>
 char	**ft_split(char const *s, char c);
 void	*ft_calloc(size_t count, size_t size);
 void	ft_putchar_fd(char c, int fd);
