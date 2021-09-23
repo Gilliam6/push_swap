@@ -11,5 +11,7 @@ typedef struct linked_list
 	struct linked_list	*previous;
 }	t_stack;
 long int	ft_atoi_long(const char *str);
+int			my_exit(int err_num);
+void		stacker(int *cash, int counter);
 
 #endif

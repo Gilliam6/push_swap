@@ -18,8 +18,12 @@ int	check_numbers(char *set, char ***splitted)
 	{
 		number = -1;
 		while((*splitted)[index][++number])
-			if(!isdigit((*splitted)[index][number]))
+		{
+			if (number == 0 && (*splitted)[index][number] == '-')
+				number++;
+			if (!isdigit((*splitted)[index][number]))
 				return (0);
+		}
 		index++;
 	}
 	return (1);
@@ -43,7 +47,7 @@ int	check_doubles(char **set)
 	return (1);
 }
 
-int	*casher(char **set)
+int	*casher(char **set, int *save)
 {
 	unsigned int	counter;
 	unsigned int 	index;
@@ -54,6 +58,7 @@ int	*casher(char **set)
 	cash = (int *)malloc(sizeof(int *) * counter);
 	if (!cash)
 		my_exit(-1);
+	*save = counter;
 	index = 0;
 	while (set[index])
 	{
@@ -70,10 +75,14 @@ int	*casher(char **set)
 
 int	main(int argc, char *argv[])
 {
-	char **set;
+	char	**set;
+	int		*cash;
+	int		counter;
 
 	if (argc != 2 || !check_numbers(argv[1], &set) || !check_doubles(set))
 		my_exit(-1);
+	cash = casher(set, &counter);
+	stacker(cash, counter);
 	while (*set)
 	{
 		write(1, *set, ft_strlen(*set));
