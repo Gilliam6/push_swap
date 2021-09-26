@@ -51,7 +51,9 @@ int	*casher(char **set, int *save)
 {
 	unsigned int	counter;
 	unsigned int 	index;
+	long int 		tmp;
 	int 			*cash;
+
 
 	while (set[counter])
 		counter++;
@@ -62,12 +64,13 @@ int	*casher(char **set, int *save)
 	index = 0;
 	while (set[index])
 	{
-		cash[index] = ft_atoi_long(set[index]);
-		if (cash[index] > 2147483647 || cash[index] < -2147483648)
+		tmp = ft_atoi_long(set[index]);
+		if (tmp > 2147483647 || tmp < -2147483648)
 		{
 			// написать функцию Free для массива интов
 			my_exit(-1);
 		}
+		cash[index] = tmp;
 		index++;
 	}
 	return (cash);
@@ -82,7 +85,8 @@ int	main(int argc, char *argv[])
 	if (argc != 2 || !check_numbers(argv[1], &set) || !check_doubles(set))
 		my_exit(-1);
 	cash = casher(set, &counter);
-	stacker(cash, counter);
+	stack_init(cash, counter);
+	write(1, "\ncheck input\n", 13);
 	while (*set)
 	{
 		write(1, *set, ft_strlen(*set));

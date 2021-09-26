@@ -23,3 +23,36 @@ long int	ft_atoi_long(const char *str)
 	}
 	return (final * minus);
 }
+
+void print_stack(t_stack *stack)
+{
+	if (!stack)
+	{
+		write(1, "stack is nothing\n", 17);
+		return ;
+	}
+	printf("number = %d | head = %d\n", stack->number, stack->head);
+	stack = stack->next;
+	while (stack->head == 0)
+	{
+		printf("number = %d | head = %d\n", stack->number, stack->head);
+		stack = stack->next;
+	}
+}
+
+int	len_stack(t_stack *stack)
+{
+	int len;
+
+	len = 0;
+	if (!stack)
+		return (0);
+	len++;
+	stack = stack->next;
+	while (stack->head == 0)
+	{
+		len++;
+		stack = stack->next;
+	}
+	return (len);
+}
