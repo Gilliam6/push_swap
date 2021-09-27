@@ -112,9 +112,9 @@ void	stack_init(int *cash, int counter)
 	push_b(&stack_A, &stack_B);
 	push_b(&stack_A, &stack_B);
 	push_b(&stack_A, &stack_B);
-	push_b(&stack_A, &stack_B);
-	push_a(&stack_B, &stack_A);
-	shift_both(&stack_A, &stack_B);
+//	push_b(&stack_A, &stack_B);
+//	push_a(&stack_B, &stack_A);
+//	shift_both(&stack_A, &stack_B);
 
 	write(1, "\nstack A\n", 9);
 	print_stack(stack_A);

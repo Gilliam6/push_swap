@@ -54,7 +54,7 @@ int	*casher(char **set, int *save)
 	long int 		tmp;
 	int 			*cash;
 
-
+	counter = 0;
 	while (set[counter])
 		counter++;
 	cash = (int *)malloc(sizeof(int *) * counter);
@@ -82,9 +82,16 @@ int	main(int argc, char *argv[])
 	int		*cash;
 	int		counter;
 
+	set = 0;
+	counter = 0;
 	if (argc != 2 || !check_numbers(argv[1], &set) || !check_doubles(set))
 		my_exit(-1);
 	cash = casher(set, &counter);
+	if (counter == 1)
+	{
+		free(cash);
+		return (0);
+	}
 	stack_init(cash, counter);
 	write(1, "\ncheck input\n", 13);
 	while (*set)
