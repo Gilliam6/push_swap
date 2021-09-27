@@ -1,1 +1,30 @@
 #include "../includes/push_swap.h"
+
+void	reverse_shift_A(t_stack **stack)
+{
+	if (len_stack(*stack) > 1)
+	{
+		(*stack)->previous->head = 1;
+		(*stack)->head = 0;
+		(*stack) = (*stack)->previous;
+	}
+	write(1, "rra\n", 4);
+}
+
+void	reverse_shift_B(t_stack **stack)
+{
+	if (len_stack(*stack) > 1)
+	{
+		(*stack)->previous->head = 1;
+		(*stack)->head = 0;
+		(*stack) = (*stack)->previous;
+	}
+	write(1, "rrb\n", 4);
+}
+
+void	reverse_shift_both(t_stack **stack_A, t_stack **stack_B)
+{
+	reverse_shift_A(stack_A);
+	reverse_shift_B(stack_B);
+	write(1, "rrr\n", 4);
+}

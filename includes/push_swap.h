@@ -10,6 +10,7 @@ typedef struct linked_list
 	struct linked_list	*next;
 	struct linked_list	*previous;
 }	t_stack;
+
 long int	ft_atoi_long(const char *str);
 int			my_exit(int err_num);
 void		stack_init(int *cash, int counter);
@@ -23,6 +24,14 @@ void		roundlst_delfirst(t_stack **stack);
 
 void		push_a(t_stack **stack_B, t_stack **stack_A);
 void		push_b(t_stack **stack_A, t_stack **stack_B);
+
+void		shift_A(t_stack **stack);
+void		shift_B(t_stack **stack);
+void		shift_both(t_stack **stack_A, t_stack **stack_B);
+
+void		reverse_shift_A(t_stack **stack);
+void		reverse_shift_B(t_stack **stack);
+void		reverse_shift_both(t_stack **stack_A, t_stack **stack_B);
 
 t_stack		*lstnew(int content, char head);
 int			len_stack(t_stack *stack);
