@@ -21,7 +21,9 @@ void		roundlst_addfront(t_stack **lst, t_stack *new);
 void		roundlst_addback(t_stack **lst, t_stack *new);
 void		roundlst_delfirst(t_stack **stack);
 
+void		push_a(t_stack **stack_B, t_stack **stack_A);
 void		push_b(t_stack **stack_A, t_stack **stack_B);
+
 t_stack		*lstnew(int content, char head);
 int			len_stack(t_stack *stack);
 

@@ -26,18 +26,20 @@ long int	ft_atoi_long(const char *str)
 
 void print_stack(t_stack *stack)
 {
+	t_stack *start;
+
+	start = stack;
 	if (!stack)
 	{
-		write(1, "stack is nothing\n", 17);
+		write(1, "stack is empty\n", 15);
 		return ;
 	}
-	printf("number = %d | head = %d\n", stack->number, stack->head);
-	stack = stack->next;
-	while (stack->head == 0)
+	while (stack->next != start)
 	{
 		printf("number = %d | head = %d\n", stack->number, stack->head);
 		stack = stack->next;
 	}
+	printf("number = %d | head = %d\n", stack->number, stack->head);
 }
 
 int	len_stack(t_stack *stack)
