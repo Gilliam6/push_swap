@@ -93,12 +93,12 @@ int	main(int argc, char *argv[])
 		return (0);
 	}
 	stack_init(cash, counter);
-	write(1, "\ncheck input\n", 13);
-	while (*set)
-	{
-		write(1, *set, ft_strlen(*set));
-		write(1, "\n", 1);
-		set++;
-	}
+//	write(1, "\ncheck input\n", 13);
+//	while (*set)
+//	{
+//		write(1, *set, ft_strlen(*set));
+//		write(1, "\n", 1);
+//		set++;
+//	}
 	return (0);
 }

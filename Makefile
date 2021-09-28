@@ -1,7 +1,8 @@
 SRCS_LIST = push_swap.c pushes.c\
 		reverse_rotate.c\
  		rotate.c stack.c\
- 		swaps.c utils.c
+ 		swaps.c utils.c\
+ 		merge_sort.c
 SRCS_DIR = srcs/
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_LIST))
 

@@ -7,6 +7,7 @@ typedef struct linked_list
 {
 	int					number;
 	char 				head;
+	int 				group;
 	struct linked_list	*next;
 	struct linked_list	*previous;
 }	t_stack;
@@ -15,8 +16,10 @@ long int	ft_atoi_long(const char *str);
 int			my_exit(int err_num);
 void		stack_init(int *cash, int counter);
 void		print_stack(t_stack *stack);
-void		swap_a_b(t_stack *stack_A, char *set);
-void		swap_both(t_stack *stack_a, t_stack *stack_b);
+
+void		swap_a(t_stack **stack_A);
+void		swap_b(t_stack **stack_B);
+void		swap_both(t_stack **stack_a, t_stack **stack_b);
 
 void		roundlst_addfront(t_stack **lst, t_stack *new);
 void		roundlst_addback(t_stack **lst, t_stack *new);
@@ -35,5 +38,8 @@ void		reverse_shift_both(t_stack **stack_A, t_stack **stack_B);
 
 t_stack		*lstnew(int content, char head);
 int			len_stack(t_stack *stack);
+
+void		merge_sort(t_stack **stack_A, t_stack **stack_B);
+
 
 #endif

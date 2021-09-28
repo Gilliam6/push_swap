@@ -34,13 +34,11 @@ void	roundlst_addback(t_stack **lst, t_stack *new)
 
 void	roundlst_addfront(t_stack **lst, t_stack *new)
 {
-	int	len;
 	t_stack *last;
 
-	len = len_stack(*lst);
 	if (!new)
 		return ;
-	else if (!len)
+	else if (!(*lst))
 		*lst = new;
 	else
 	{
@@ -102,19 +100,7 @@ void	stack_init(int *cash, int counter)
 
 	stack_A = stack_constructor(cash, counter);
 
-	print_stack(stack_A);
-	swap_a_b(stack_A, "sa\n");
-	print_stack(stack_A);
-	swap_a_b(stack_A, "sa\n");
-	print_stack(stack_A);
-	write(1, "\n", 1);
-
-	push_b(&stack_A, &stack_B);
-	push_b(&stack_A, &stack_B);
-	push_b(&stack_A, &stack_B);
-//	push_b(&stack_A, &stack_B);
-//	push_a(&stack_B, &stack_A);
-//	shift_both(&stack_A, &stack_B);
+	merge_sort(&stack_A, &stack_B);
 
 	write(1, "\nstack A\n", 9);
 	print_stack(stack_A);
