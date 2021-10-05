@@ -1,6 +1,6 @@
 #include "../includes/push_swap.h"
 
-t_stack	*lstnew(int content, char head)
+t_stack	*lstnew(int content, char head, int group)
 {
 	t_stack	*new_node;
 
@@ -8,6 +8,7 @@ t_stack	*lstnew(int content, char head)
 	if (!new_node)
 		my_exit(-1);
 	new_node->number = content;
+	new_node->group = group;
 	new_node->head = head;
 	new_node->next = new_node;
 	new_node->previous = new_node;
@@ -85,13 +86,13 @@ t_stack	*stack_constructor(int *cash, int counter)
 	t_stack			*stack_A;
 
 	index = 0;
-	stack_A = lstnew(cash[index], 1);
+	stack_A = lstnew(cash[index], 1, 0);
 	while (++index < counter)
-		roundlst_addback(&stack_A, lstnew(cash[index], 0));
+		roundlst_addback(&stack_A, lstnew(cash[index], 0, 0));
 	return (stack_A);
 }
 
-void	stack_init(int *cash, int counter)
+int	stack_init(int *cash, int counter)
 {
 	t_stack	*stack_A;
 	t_stack	*stack_B;
@@ -102,13 +103,13 @@ void	stack_init(int *cash, int counter)
 
 	merge_sort(&stack_A, &stack_B);
 
-	write(1, "\nstack A\n", 9);
-	print_stack(stack_A);
-	write(1, "\nstack B\n", 9);
-	print_stack(stack_B);
+//	write(1, "\nstack A\n", 9);
+//	print_stack(stack_A);
+//	write(1, "\nstack B\n", 9);
+//	print_stack(stack_B);
 //	printf("number = %d | head = %d\n", stack_B->number, stack_B->head);
 //	stack_B = stack_B->next;
 //	printf("number = %d | head = %d\n", stack_B->number, stack_B->head);
-
+	return (1);
 }
 

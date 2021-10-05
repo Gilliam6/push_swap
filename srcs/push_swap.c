@@ -4,47 +4,9 @@ int	my_exit(int err_num)
 {
 	if (err_num == -1)
 		ft_putstr_fd("Error\n", 1);
+	if (err_num == -2)
+		ft_putstr_fd("Malloc problem\n", 1);
 	exit (0);
-}
-
-int	check_numbers(char *set, char ***splitted)
-{
-	unsigned int	index;
-	unsigned int	number;
-
-	index = 0;
-	*splitted = ft_split(set, ' ');
-	while ((*splitted)[index])
-	{
-		number = -1;
-		while((*splitted)[index][++number])
-		{
-			if (number == 0 && (*splitted)[index][number] == '-')
-				number++;
-			if (!isdigit((*splitted)[index][number]))
-				return (0);
-		}
-		index++;
-	}
-	return (1);
-}
-
-int	check_doubles(char **set)
-{
-	unsigned int	counter;
-
-	while (*set)
-	{
-		counter = 1;
-		while (set[counter])
-		{
-			if (!ft_strncmp(set[0], set[counter], ft_strlen(set[0])))
-				return (0);
-			counter++;
-		}
-		set++;
-	}
-	return (1);
 }
 
 int	*casher(char **set, int *save)
@@ -78,21 +40,28 @@ int	*casher(char **set, int *save)
 
 int	main(int argc, char *argv[])
 {
-	char	**set;
-	int		*cash;
-	int		counter;
+	char **set;
+	int *cash;
+	int counter;
 
 	set = 0;
 	counter = 0;
-	if (argc != 2 || !check_numbers(argv[1], &set) || !check_doubles(set))
-		my_exit(-1);
-	cash = casher(set, &counter);
-	if (counter == 1)
+	if (argc <= 2)
 	{
-		free(cash);
-		return (0);
+		if (argc == 1 || !check_numbers(argv[1], &set) || !check_doubles(set))
+			my_exit(-1);
 	}
-	stack_init(cash, counter);
+	else
+	{
+		if (!check_numbers_wo_split(++argv) || !check_doubles(argv))
+			my_exit(-1);
+	}
+	if (set == 0)
+		cash = casher(argv, &counter);
+	else
+		cash = casher(set, &counter);
+	if (!stack_init(cash, counter))
+		my_exit(-2);
 //	write(1, "\ncheck input\n", 13);
 //	while (*set)
 //	{

@@ -12,9 +12,13 @@ typedef struct linked_list
 	struct linked_list	*previous;
 }	t_stack;
 
+int			check_numbers(char *set, char ***splitted);
+int			check_numbers_wo_split(char **splitted);
+int			check_doubles(char **set);
+
 long int	ft_atoi_long(const char *str);
 int			my_exit(int err_num);
-void		stack_init(int *cash, int counter);
+int			stack_init(int *cash, int counter);
 void		print_stack(t_stack *stack);
 
 void		swap_a(t_stack **stack_A);
@@ -36,7 +40,7 @@ void		reverse_shift_A(t_stack **stack);
 void		reverse_shift_B(t_stack **stack);
 void		reverse_shift_both(t_stack **stack_A, t_stack **stack_B);
 
-t_stack		*lstnew(int content, char head);
+t_stack		*lstnew(int content, char head, int group);
 int			len_stack(t_stack *stack);
 
 void		merge_sort(t_stack **stack_A, t_stack **stack_B);
