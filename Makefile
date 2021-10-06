@@ -3,6 +3,7 @@ SRCS_LIST = push_swap.c pushes.c\
  		rotate.c stack.c\
  		swaps.c utils.c\
  		merge_sort.c validator.c
+
 SRCS_DIR = srcs/
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_LIST))
 
