@@ -55,16 +55,26 @@ void	shuffle_group(t_stack **stack_A, t_stack **stack_B, int group)
 
 void	groupped_shuffle(t_stack **stack_A, t_stack **stack_B, int group)
 {
-	int g;
+	int g_first;
+//	int g_next;
 
-	g = (*stack_A)->group;
-	while ((*stack_A)->group == g)
+	g_first = (*stack_A)->group;
+	while ((*stack_A)->group == g_first)
 	{
 		(*stack_A)->group = group;
 		push_b(stack_A, stack_B);
+		if ((*stack_B)->number > (*stack_B)->next->number)
+			swap_b(stack_B);
 	}
-
-
+	g_first = (*stack_A)->group;
+	while ((*stack_A)->group == g_first)
+	{
+		(*stack_A)->group = group;
+		(*stack_A) = (*stack_A)->next;
+	}
+	while (!(*stack_A)->head)
+		*stack_A = (*stack_A)->next;
+	shuffle_group(stack_A, stack_B, group);
 }
 
 void merge_sort(t_stack **stack_A, t_stack **stack_B)
