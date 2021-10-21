@@ -7,10 +7,19 @@ typedef struct linked_list
 {
 	int					number;
 	char 				head;
+	int					order;
 	int 				group;
 	struct linked_list	*next;
 	struct linked_list	*previous;
 }	t_stack;
+
+typedef struct medians
+{
+	int					next;
+	int					mid;
+	int 				max;
+	int					group;
+}	t_medians;
 
 int			check_numbers(char *set, char ***splitted);
 int			check_numbers_wo_split(char **splitted);
@@ -40,10 +49,10 @@ void		reverse_shift_A(t_stack **stack);
 void		reverse_shift_B(t_stack **stack);
 void		reverse_shift_both(t_stack **stack_A, t_stack **stack_B);
 
-t_stack		*lstnew(int content, char head, int group);
+t_stack		*lstnew(int content, char head, int group, int order);
 int			len_stack(t_stack *stack);
 
-void		quick_sort(t_stack **stack_A, t_stack **stack_B);
+void		quick_sort(t_stack **stack_A, t_stack **stack_B, t_medians *orders);
 int			sorted_stack(t_stack *stack);
 
 int			median_of_median(int *med_5, int len, int index);

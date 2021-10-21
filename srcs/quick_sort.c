@@ -14,86 +14,100 @@ int	sorted_stack(t_stack *stack)
 	return (1);
 }
 
-int	find_median(t_stack *stack)
+//int	find_median(t_stack *stack)
+//{
+//	int median;
+//	if (len_stack(stack) >= 15)
+//		median = median_On(stack);
+//	else
+//		median = median_low(stack);
+//	return (median);
+//}
+
+void	push_half(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
 {
-	int median;
-	if (len_stack(stack) >= 15)
-		median = median_On(stack);
-	else
-		median = median_low(stack);
-	return (median);
+	int	len;
+
+	len = len_stack(*stack_A);
+
+	while (len--)
+	{
+		if ((*stack_A)->order <= orders->mid)
+			push_b(stack_A, stack_B);
+		else
+			shift_A(stack_A);
+	}
+	orders->max = orders->mid;
+	orders->mid = (orders->max - orders->next) / 2 + orders->next;
+	orders->group++;
 }
 
-void push_medians(t_stack **stack_A, t_stack **stack_B, int mid, int groups)
+int	check_tops(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
+{
+	if ((*stack_A)->order == orders->next)
+	{
+		shift_A(stack_A);
+		orders->next++;
+		return (1);
+	}
+	if ((*stack_B) && (*stack_B)->order == orders->next)
+	{
+		(*stack_B)->group = orders->group;
+		push_a(stack_B, stack_A);
+		shift_A(stack_A);
+		orders->next++;
+		return (1);
+	}
+	if ((*stack_B) && (*stack_B)->previous->order == orders->next)
+	{
+		reverse_shift_B(stack_B);
+		(*stack_B)->group = orders->group;
+		push_a(stack_B, stack_A);
+		shift_A(stack_A);
+		orders->next++;
+		return (1);
+	}
+	return (0);
+}
+
+void	push_back(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
 {
 	int	len;
 
 	len = len_stack(*stack_A);
 	while (len--)
 	{
-		if ((*stack_A)->number <= mid)
+		if ((*stack_A)->order <= orders->mid)
 		{
-			(*stack_A)->group = groups;
+			(*stack_A)->group = orders->group;
 			push_b(stack_A, stack_B);
+			if ((*stack_B)->order == orders->next)
+			{
+				orders->next++;
+				shift_B(stack_B);
+			}
 		}
 		else
 			shift_A(stack_A);
+		check_tops(stack_B, stack_A, orders);
 	}
+	orders->max = orders->mid;
+	orders->mid = (orders->max - orders->next) / 2 + orders->next;
+	orders->group++;
+//	if (*stack_B)
+//		check_tops(stack_B, stack_A, orders);
 }
 
-void push_medians_back(t_stack **stack_A, t_stack **stack_B, int mid, int
-groups)
+void quick_sort(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
 {
-	int	len;
-
-	len = len_stack(*stack_A);
-	if (len > 3)
+	while (!sorted_stack(*stack_A) && !(*stack_B))
 	{
-
-		ft_putnbr_fd(len, 1);
-		write(1, " len\n", 5);
-		while (len--)
-		{
-			if ((*stack_B)->group == (*stack_B)->next->group && (*stack_B)
-			->number > (*stack_B) ->next->number)
-				swap_b(stack_B);
-			if ((*stack_A)->number <= mid)
-			{
-				(*stack_A)->group = groups;
-				push_b(stack_A, stack_B);
-			}
-			else
-				shift_A(stack_A);
-		}
+		if (!(*stack_B))
+			push_half(stack_A, stack_B, orders);
+//		printf("orders mid %d | max %d | next %d\n", orders->mid, orders->max,
+//			orders->next);
+		while (*stack_B)
+			push_back(stack_B, stack_A, orders);
+		while (check_tops(stack_A, stack_B, orders));
 	}
-	else
-	{
-		while (len--)
-		{
-			if ((*stack_B)->group == (*stack_B)->next->group && (*stack_B)->number > (*stack_B)->next->number)
-				swap_b(stack_B);
-			(*stack_A)->group = groups;
-			push_b(stack_A, stack_B);
-		}
-		if ((*stack_B)->group == (*stack_B)->next->group && (*stack_B)->number > (*stack_B)->next->number)
-			swap_b(stack_B);
-	}
-	while ((*stack_B)->group == groups)
-		shift_B(stack_B);
-}
-
-void quick_sort(t_stack **stack_A, t_stack **stack_B)
-{
-	int groups;
-
-	groups = 0;
-	push_medians(stack_A, stack_B, find_median(*stack_A), groups++);
-	printf("median of stack A | %d\n", find_median(*stack_B));
-	while ((*stack_B))
-		push_medians_back(stack_B, stack_A, find_median(*stack_B), groups++);
-	
-//	printf("median of stack A | %d\n", median);
-//	(void) stack_A;
-//	(void) stack_B;
-
 }

@@ -36,12 +36,12 @@ void print_stack(t_stack *stack)
 	}
 	while (stack->next != start)
 	{
-		printf("number = %d | group = %d | head = %d\n", stack->number,
-			   stack->group, stack->head);
+		printf("number = %d | group = %d | order = %d | head = %d\n",
+			   stack->number, stack->group, stack->order, stack->head);
 		stack = stack->next;
 	}
-	printf("number = %d | group = %d | head = %d\n", stack->number,
-		   stack->group, stack->head);
+	printf("number = %d | group = %d | order = %d | head = %d\n",
+		   stack->number, stack->group, stack->order, stack->head);
 }
 
 int	len_stack(t_stack *stack)
