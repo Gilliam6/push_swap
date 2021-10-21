@@ -43,7 +43,14 @@ void		reverse_shift_both(t_stack **stack_A, t_stack **stack_B);
 t_stack		*lstnew(int content, char head, int group);
 int			len_stack(t_stack *stack);
 
-void		merge_sort(t_stack **stack_A, t_stack **stack_B);
+void		quick_sort(t_stack **stack_A, t_stack **stack_B);
+int			sorted_stack(t_stack *stack);
+
+int			median_of_median(int *med_5, int len, int index);
+int 		median_On(t_stack *stack);
+int			median_of_5(int index, t_stack *stack);
+int			array_solver(int *array, int index);
+int			median_low(t_stack *stack);
 
 
 #endif
