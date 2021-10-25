@@ -75,7 +75,6 @@ void	roundlst_delfirst(t_stack **stack)
 		(*stack) = (*stack)->next;
 		(*stack)->previous = last;
 		last->next = *stack;
-//		last->previous = *stack;
 		(*stack)->head = 1;
 		free(tmp);
 	}
@@ -137,7 +136,7 @@ int	stack_init(int *cash, int counter)
 	if (!sorted_stack(stack_A))
 		orders = pre_sorting(&stack_A, cash, counter);
 	quick_sort(&stack_A, &stack_B, orders);
-
+//
 	write(1, "\nstack A\n", 9);
 	print_stack(stack_A);
 	write(1, "\nstack B\n", 9);

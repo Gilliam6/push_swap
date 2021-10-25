@@ -4,21 +4,23 @@ int	check_numbers(char *set, char ***splitted)
 {
 	unsigned int	index;
 	unsigned int	number;
+	char			**split;
 
 	index = 0;
-	*splitted = ft_split(set, ' ');
-	while ((*splitted)[index])
+	split = ft_split(set, ' ');
+	while (split[index])
 	{
 		number = -1;
-		while((*splitted)[index][++number])
+		while(split[index][++number])
 		{
-			if (number == 0 && (*splitted)[index][number] == '-')
+			if (number == 0 && split[index][number] == '-')
 				number++;
-			if (!isdigit((*splitted)[index][number]))
+			if (!isdigit(split[index][number]))
 				return (0);
 		}
 		index++;
 	}
+	*splitted = split;
 	return (1);
 }
 

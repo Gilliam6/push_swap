@@ -38,7 +38,7 @@ int	*casher(char **set, int *save)
 	return (cash);
 }
 
-int	main(int argc, char *argv[])
+int	main(int argc, char **argv)
 {
 	char **set;
 	int *cash;
@@ -48,7 +48,7 @@ int	main(int argc, char *argv[])
 	counter = 0;
 	if (argc <= 2)
 	{
-		if (argc == 1 || !check_numbers(argv[1], &set) || !check_doubles(set))
+		if (argc == 2 || !check_numbers(argv[1], &set) || !check_doubles(set))
 			my_exit(-1);
 	}
 	else
