@@ -138,6 +138,24 @@ void	sort_group(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
 	}
 }
 
+int	group_size(t_stack *stack)
+{
+	int	i;
+
+	i = 0;
+	while (stack->group == stack->next->group)
+	{
+		i++;
+		stack = stack->next;
+	}
+	return (i);
+}
+
+void groups_optimizer(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
+{
+	
+}
+
 void quick_sort(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
 {
 	push_half(stack_A, stack_B, orders);
@@ -145,9 +163,14 @@ void quick_sort(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
 		push_back(stack_A, stack_B, orders);
 	while ((*stack_A)->group)
 	{
-		while ((*stack_A)->group == (*stack_A)->next->group)
+		if (group_size(*stack_A) > 10)
+			groups_optimizer(stack_A);
+		else
+		{
+			while ((*stack_A)->group == (*stack_A)->next->group)
+				push_b(stack_A, stack_B);
 			push_b(stack_A, stack_B);
-		push_b(stack_A, stack_B);
+		}
 		sort_group(stack_A, stack_B, orders);
 	}
 	orders->max = len_stack(*stack_A);
