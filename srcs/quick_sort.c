@@ -56,6 +56,23 @@ void 	sort_3(t_stack **stack)
 		reverse_shift_B(stack);
 }
 
+void 	check_tops(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
+{
+	if ((*stack_B)->next->order == orders->next)
+	{
+		push_a(stack_B, stack_A);
+		shift_A(stack_A);
+		orders->next++;
+	}
+	if ((*stack_B)->previous->order == orders->next)
+	{
+		reverse_shift_B(stack_B);
+		push_a(stack_B, stack_A);
+		shift_A(stack_A);
+		orders->next++;
+	}
+
+}
 
 void	push_back(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
 {
@@ -70,8 +87,8 @@ void	push_back(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
 			push_a(stack_B, stack_A);
 			if ((*stack_A)->order == orders->next)
 			{
-				orders->next++;
 				shift_A(stack_A);
+				orders->next++;
 			}
 		}
 		else
@@ -79,13 +96,23 @@ void	push_back(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
 			shift_B(stack_B);
 //			check_tops(stack_A, stack_B, orders);
 		}
-//		if ((*stack_B) && check_tops(stack_A, stack_B, orders))
-//			len--;
 	}
 	orders->max = orders->mid;
 	orders->mid = (orders->max - orders->next) / 2 + orders->next;
 	orders->group++;
+}
 
+int	shift_optimizer(t_stack *stack, int mid, t_medians *orders)
+{
+	int i;
+
+	i = 0;
+	while (stack->order != orders->next)
+	{
+		stack = stack->next;
+		i++;
+	}
+	return (i < mid);
 }
 
 void	sort_group(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
@@ -93,12 +120,10 @@ void	sort_group(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
 	int	len;
 
 	len = len_stack(*stack_B);
-	if (len == 2)
-		sort_2(stack_B);
-	else if (len == 3)
-		sort_3(stack_B);
 	while (*stack_B)
 	{
+		if ((*stack_B)->next->order == orders->next)
+			swap_b(stack_B);
 		if ((*stack_B)->order == orders->next)
 		{
 			push_a(stack_B, stack_A);
@@ -106,15 +131,10 @@ void	sort_group(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
 			orders->next++;
 			len--;
 		}
-		else
-		{
-//			printf("next %d | order %d\n", orders->next, (*stack_B)->order);
-//			write(1, "STACK A\n", 8);
-//			print_stack(*stack_A);
-//			write(1, "STACK B\n", 8);
-//			print_stack(*stack_B);
+		else if (shift_optimizer(*stack_B, len / 2, orders))
 			shift_B(stack_B);
-		}
+		else
+			reverse_shift_B(stack_B);
 	}
 }
 
@@ -123,10 +143,6 @@ void quick_sort(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
 	push_half(stack_A, stack_B, orders);
 	while (*stack_B)
 		push_back(stack_A, stack_B, orders);
-	write(1, "\nstack A\n", 9);
-	print_stack(*stack_A);
-	write(1, "\nstack B\n", 9);
-	print_stack(*stack_B);
 	while ((*stack_A)->group)
 	{
 		while ((*stack_A)->group == (*stack_A)->next->group)
@@ -134,22 +150,15 @@ void quick_sort(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
 		push_b(stack_A, stack_B);
 		sort_group(stack_A, stack_B, orders);
 	}
-
 	orders->max = len_stack(*stack_A);
 	orders->mid = (orders->max - orders->next) / 2 + orders->next;
 	while (!(*stack_A)->group)
 	{
-//		if ((*stack_A)->order == orders->next)
-//		{
-//			shift_A(stack_A);
-//			orders->next++;
-//		}
 		if ((*stack_A)->order <= orders->mid)
 			push_b(stack_A, stack_B);
 		else
 			shift_A(stack_A);
 	}
-
 	while (!(*stack_A)->previous->group)
 	{
 		if ((*stack_B)->order != orders->next)
@@ -158,15 +167,27 @@ void quick_sort(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
 			reverse_shift_A(stack_A);
 	}
 	sort_group(stack_A, stack_B, orders);
+	orders->mid = (orders->max - orders->next) / 2 + orders->next;
+
+//	printf("next %d| max %d| mid %d\n", orders->next, orders->max, orders->mid);
 	while (!(*stack_A)->group)
+	{
+		if ((*stack_A)->order <= orders->mid)
 			push_b(stack_A, stack_B);
+		else
+			shift_A(stack_A);
+	}
+	while ((*stack_A)->previous->order > orders->next)
+	{
+		if ((*stack_B)->order != orders->next)
+			reverse_shift_both(stack_A, stack_B);
+		else
+			reverse_shift_A(stack_A);
+	}
 	sort_group(stack_A, stack_B, orders);
-	//	push_b(stack_A, stack_B);
-//	while (*stack_B)
-//	{
-//		push_a(stack_B, stack_A);
-//		check_tops(stack_A, stack_B, orders);
-//	}
-//	printf("orders mid %d | max %d | next %d\n", orders->mid, orders->max,
-//		   orders->next);
+	while (!(*stack_A)->group)
+	{
+		push_b(stack_A, stack_B);
+	}
+	sort_group(stack_A, stack_B, orders);
 }

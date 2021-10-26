@@ -46,10 +46,12 @@ int	main(int argc, char **argv)
 
 	set = 0;
 	counter = 0;
-	if (argc <= 2)
+	if (argc == 2)
 	{
-		if (argc == 2 || !check_numbers(argv[1], &set) || !check_doubles(set))
+		if (!check_numbers(argv[1], &set) || !check_doubles(set))
+		{
 			my_exit(-1);
+		}
 	}
 	else
 	{
@@ -59,9 +61,13 @@ int	main(int argc, char **argv)
 	if (set == 0)
 		cash = casher(argv, &counter);
 	else
+	{
 		cash = casher(set, &counter);
+	}
 	if (!stack_init(cash, counter))
+	{
 		my_exit(-2);
+	}
 //	write(1, "\ncheck input\n", 13);
 //	while (*set)
 //	{

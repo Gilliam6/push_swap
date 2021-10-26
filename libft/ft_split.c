@@ -21,7 +21,7 @@ static unsigned int	ft_pieces(char const *s, char c)
 	delen = 0;
 	counter = 0;
 
-	while (s[counter])
+	while (s[counter] && s[counter] == c)
 		counter++;
 	while (s[counter])
 	{

@@ -135,16 +135,17 @@ int	stack_init(int *cash, int counter)
 	stack_A = stack_constructor(cash, counter);
 	if (!sorted_stack(stack_A))
 		orders = pre_sorting(&stack_A, cash, counter);
-	quick_sort(&stack_A, &stack_B, orders);
+	if (!sorted_stack(stack_A))
+		quick_sort(&stack_A, &stack_B, orders);
 //
-	write(1, "\nstack A\n", 9);
-	print_stack(stack_A);
-	write(1, "\nstack B\n", 9);
-	print_stack(stack_B);
-	if (sorted_stack(stack_A))
-		return (write(1, "Sorted\n", 7));
-	else
-		return (write(1, "Not sorted\n", 11));
+//	write(1, "\nstack A\n", 9);
+//	print_stack(stack_A);
+//	write(1, "\nstack B\n", 9);
+//	print_stack(stack_B);
+//	if (sorted_stack(stack_A))
+//		return (write(1, "Sorted\n", 7));
+//	else
+//		return (write(1, "Not sorted\n", 11));
 //	printf("number = %d | head = %d\n", stack_B->number, stack_B->head);
 //	stack_B = stack_B->next;
 //	printf("number = %d | head = %d\n", stack_B->number, stack_B->head);

@@ -58,7 +58,6 @@ int ft_strcmp(char *s1, char *s2)
 int	check_doubles(char **set)
 {
 	unsigned int	counter;
-
 	while (*set)
 	{
 		counter = 1;
@@ -70,5 +69,6 @@ int	check_doubles(char **set)
 		}
 		set++;
 	}
+
 	return (1);
 }
