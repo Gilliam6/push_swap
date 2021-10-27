@@ -39,6 +39,8 @@ void	push_half(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
 	}
 	orders->max = orders->mid;
 	orders->mid = (orders->max - orders->next) / 2 + orders->next;
+	if (orders->max - orders->mid > 10)
+		orders->mid += 3;
 	orders->group++;
 }
 
@@ -99,6 +101,8 @@ void	push_back(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
 	}
 	orders->max = orders->mid;
 	orders->mid = (orders->max - orders->next) / 2 + orders->next;
+	if (orders->max - orders->mid > 10)
+		orders->mid += 3;
 	orders->group++;
 }
 
@@ -151,30 +155,31 @@ int	group_size(t_stack *stack)
 	return (i);
 }
 
-void groups_optimizer(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
-{
-	
-}
+//void groups_optimizer(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
+//{
+//
+//}
 
 void quick_sort(t_stack **stack_A, t_stack **stack_B, t_medians *orders)
 {
 	push_half(stack_A, stack_B, orders);
 	while (*stack_B)
 		push_back(stack_A, stack_B, orders);
+//	print_stack(*stack_A);
 	while ((*stack_A)->group)
 	{
-		if (group_size(*stack_A) > 10)
-			groups_optimizer(stack_A);
-		else
-		{
-			while ((*stack_A)->group == (*stack_A)->next->group)
-				push_b(stack_A, stack_B);
+//		if (group_size(*stack_A) > 10)
+//			groups_optimizer(stack_A);
+//		else
+//		{
+		while ((*stack_A)->group == (*stack_A)->next->group)
 			push_b(stack_A, stack_B);
-		}
+		push_b(stack_A, stack_B);
+//		}
 		sort_group(stack_A, stack_B, orders);
 	}
 	orders->max = len_stack(*stack_A);
-	orders->mid = (orders->max - orders->next) / 2 + orders->next;
+	orders->mid = (orders->max - orders->next) / 2 + orders->next - 2;
 	while (!(*stack_A)->group)
 	{
 		if ((*stack_A)->order <= orders->mid)
