@@ -3,7 +3,7 @@ SRCS_LIST = push_swap.c pushes.c\
  		rotate.c stack.c\
  		swaps.c utils.c\
  		quick_sort.c validator.c\
- 		medians.c
+ 		medians.c fix_sort.c
 
 SRCS_DIR = srcs/
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_LIST))

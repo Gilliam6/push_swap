@@ -100,6 +100,8 @@ t_medians	*pre_sorting(t_stack **stack_A, int *cash, int counter)
 	int			n;
 
 	orders = malloc(sizeof(orders));
+	if (!orders)
+		return (0);
 	index = 0;
 	orders->max = 0;
 	while (index < counter)
@@ -124,31 +126,38 @@ t_medians	*pre_sorting(t_stack **stack_A, int *cash, int counter)
 	return (orders);
 }
 
+void little_sort(t_stack **stack_A, t_stack **stack_B)
+{
+	if (len_stack(*stack_A) == 3)
+		sort_3(stack_A);
+	else if (len_stack(*stack_A) == 4)
+		sort_4(stack_A, stack_B);
+	else if (len_stack(*stack_A) == 5)
+		sort_5(stack_A, stack_B);
+//	else if (len_stack(*stack_A) == 6)
+//		sort_6(stack_A, stack_B);
+}
+
 int	stack_init(int *cash, int counter)
 {
 	t_stack		*stack_A;
 	t_stack		*stack_B;
 	t_medians	*orders;
 
-	orders = 0;
 	stack_B = 0;
 	stack_A = stack_constructor(cash, counter);
 	if (!sorted_stack(stack_A))
+	{
 		orders = pre_sorting(&stack_A, cash, counter);
-	if (!sorted_stack(stack_A))
+		if (!orders)
+			return (0);
+	}
+	else
+		return (1);
+	if (len_stack(stack_A) <= 5)
+		little_sort(&stack_A, &stack_B);
+	else
 		quick_sort(&stack_A, &stack_B, orders);
-//
-//	write(1, "\nstack A\n", 9);
-//	print_stack(stack_A);
-//	write(1, "\nstack B\n", 9);
-//	print_stack(stack_B);
-//	if (sorted_stack(stack_A))
-//		return (write(1, "Sorted\n", 7));
-//	else
-//		return (write(1, "Not sorted\n", 11));
-//	printf("number = %d | head = %d\n", stack_B->number, stack_B->head);
-//	stack_B = stack_B->next;
-//	printf("number = %d | head = %d\n", stack_B->number, stack_B->head);
 	return (1);
 }
 

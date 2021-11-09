@@ -25,6 +25,13 @@ int			check_numbers(char *set, char ***splitted);
 int			check_numbers_wo_split(char **splitted);
 int			check_doubles(char **set);
 
+void		little_sort(t_stack **stack_A, t_stack **stack_B);
+
+void 		sort_5(t_stack **stack_A, t_stack **stack_B);
+void 		sort_4(t_stack **stack_A, t_stack **stack_B);
+void 		sort_3(t_stack **stack);
+
+
 long int	ft_atoi_long(const char *str);
 int			my_exit(int err_num);
 int			stack_init(int *cash, int counter);
