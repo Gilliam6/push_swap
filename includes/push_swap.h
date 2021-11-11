@@ -26,10 +26,18 @@ int			check_numbers_wo_split(char **splitted);
 int			check_doubles(char **set);
 
 void		little_sort(t_stack **stack_A, t_stack **stack_B);
+void 	sort_5_in_act(t_stack **stack_A, t_stack **stack_B, t_medians *orders);
 
 void 		sort_5(t_stack **stack_A, t_stack **stack_B);
 void 		sort_4(t_stack **stack_A, t_stack **stack_B);
-void 		sort_3(t_stack **stack);
+void 		sort_3_a(t_stack **stack);
+void 		sort_3_b(t_stack **stack);
+
+void		opt_3(t_stack **stack_A, t_stack **stack_B, t_medians *orders);
+int			group_size(t_stack *stack, int group);
+void	kick_max_to_b(t_stack **stack_A, t_stack **stack_B, t_medians
+*orders, int len);
+void	take_max_to_a(t_stack **stack_A, t_stack **stack_B, t_medians *orders);
 
 
 long int	ft_atoi_long(const char *str);

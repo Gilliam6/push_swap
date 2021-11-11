@@ -129,7 +129,7 @@ t_medians	*pre_sorting(t_stack **stack_A, int *cash, int counter)
 void little_sort(t_stack **stack_A, t_stack **stack_B)
 {
 	if (len_stack(*stack_A) == 3)
-		sort_3(stack_A);
+		sort_3_a(stack_A);
 	else if (len_stack(*stack_A) == 4)
 		sort_4(stack_A, stack_B);
 	else if (len_stack(*stack_A) == 5)
